@@ -6,16 +6,12 @@
 </head>
 <body>
 <div align="center">
-    <h2>User List</h2>
-    <table border="1">
-            <tr th:each="user :${userList}">
-    <td th:utext="${user.userId}">
-    <td th:utext="${user.userName}">
-    <td th:utext="${user.userSex}">
-    <td th:utext="${user.userYearOfBirthDay}">
-    <td th:utext="${user.userEmail}">
-            </tr>
-    </table>
+
+
+    <td th:text="${userList}">
+
+    </td>
+
 </div>
 </body>
 </html>
