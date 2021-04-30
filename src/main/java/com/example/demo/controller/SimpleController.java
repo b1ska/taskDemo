@@ -21,11 +21,6 @@ public class SimpleController {
         return "index";
     }
 
-    @RequestMapping(value = {"/grid"}, method = RequestMethod.GET)
-    public String getGrid(){
-        return "grid";
-    }
-
     @RequestMapping(value = {"/userlist"}, method = RequestMethod.GET)
     public String getUserList(Model model){
         List<User> userList = userService.findUser();
