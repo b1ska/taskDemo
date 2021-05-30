@@ -5,6 +5,13 @@
 
 <mapper namespace="com.example.demo.mapper.UserMapper">
     <select id="findUser" resultType="com.example.demo.model.User">
-           SELECT * FROM public."Users"
+        SELECT *
+        FROM public."Users"
     </select>
+
+    <insert id="addNewUser">
+        INSERT INTO "Users" ("userId", "userName", "userSex", "userYearOfBirthDay", "userEmail")
+        VALUES (#{userId}, #{userName}, #{userSex}, #{userYearOfBirthDay}, #{userEmail})
+    </insert>
+
 </mapper>
