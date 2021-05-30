@@ -1,144 +1,163 @@
-Ext.require([ 'Ext.grid.*', 'Ext.data.*', 'Ext.dd.*' ]);
+Ext.require(['Ext.grid.*', 'Ext.data.*', 'Ext.dd.*']);
 
-// Creation of data model
+
 Ext.define('UserDataModel', {
-    extend : 'Ext.data.Model',
-    fields : [ {
-        name : 'id',
-        mapping : 'id'
-    },
-
-        {
-            name : 'name',
-            mapping : 'name'
-        }, {
-            name : 'sex',
-            mapping : 'sex'
-        },{
-            name : 'age',
-            mapping : 'age'
-        },{
-            name : 'email',
-            mapping : 'email'
-        } ]
+    extend: 'Ext.data.Model',
+    fields: [
+        {name: 'userId', type: 'int'},
+        {name: 'userName', type: 'string'},
+        {name: 'userSex', type: 'string'},
+        {name: 'userYearOfBirthDay', type: 'int'},
+        {name: 'userEmail', type: 'string'}
+    ]
 });
 
-Ext.onReady(function() {
-    // Store data
-    var myData = [ {
-        id:"1",
-        name : "Danila",
-        sex: "male",
-        age : "33",
-        email: "test@mail.ru"
-    }, {
-        id:"2",
-        name : "Tom",
-        sex: "male",
-        age : "40",
-        email: "test@gmail.com"
-    }, {
-        id:"3",
-        name : "Andrey",
-        sex: "male",
-        age : "25",
-        email: "test3@yandex.ru"
-    }, {
-        id:"4",
-        name : "Vaso",
-        sex: "male",
-        age : "26",
-        email: "test@mail.ru"
-    }, {
-        id:"5",
-        name : "Lalal",
-        sex: "female",
-        age : "22",
-        email: "test2@list.ru"
-    } ];
+Ext.onReady(function () {
 
-    // Creation grid store
     var firstGridStore = Ext.create('Ext.data.Store', {
-        model : 'UserDataModel',
-        data : myData
+        model: 'UserDataModel',
+        pageSize: 30,
+        proxy: {
+            type: 'ajax',
+            api: {
+                read: 'http://localhost:8089/userlist', //поиск
+                create: 'http://localhost:8089/addUser',
+                // update: 'http://localhost:8089/updateUsers'
+            },
+            reader: {
+                type: 'json',
+                rootProperty: "MyModel"
+            },
+            writer: {
+                type: 'json',
+           //      rootProperty: "id",
+           //      allowSingle: true,
+           //      encode: true,
+           // //     listful: true,
+           //      writeAllFields: true
+            }
+
+
+
+        },
+        autoLoad: true
     });
 
     // Creation the grid
     var firstGrid = Ext.create('Ext.grid.Panel', {
-        multiSelect : true,
-        viewConfig : {
-            plugins : {
-                ptype : 'gridviewdragdrop',
-                dragGroup : 'firstGridDDGroup'
+
+        store: firstGridStore,
+        columns: [
+            {
+                header: 'Id',
+                dataIndex: 'userId',
+                id: 'userId',
+                flex: 1,
+                sortable: true,
+                editor: 'numberfield'
             },
-            listeners : {
-                drop : function(node, data, dropRec, dropPosition) {
-                    var dropOn = dropRec ? ' ' + dropPosition + ' '
-                        + dropRec.get('name') : ' on empty view';
+            {
+                header: 'Имя пользователя',
+                dataIndex: 'userName',
+                id: 'userName',
+                flex: 1,
+                sortable: true,
+                editor: 'textfield'
+            },
+            {
+                header: 'Пол',
+                dataIndex: 'userSex',
+                id: 'userSex',
+                flex: 1,
+                sortable: true,
+                editor: 'textfield'
+            },
+            {
+                header: 'Дата рождения',
+                dataIndex: 'userYearOfBirthDay',
+                id: 'userYearOfBirthDay',
+                flex: 1,
+                sortable: true,
+                editor: 'numberfield'
+            },
+            {
+                header: 'Почта',
+                dataIndex: 'userEmail',
+                id: 'userEmail',
+                flex: 1,
+                sortable: true,
+                editor: 'textfield'
+            }
+        ],
+        plugins: {
+            ptype: 'cellediting',
+            clicksToEdit: 1
+        },
+        stripeRows: true,
+        title: 'Таблица пользователей',
+        margins: '0 2 0 0'
+    });
+
+    var rEditor = Ext.create('Ext.grid.plugin.RowEditing', {
+        clicksToEdit: 2,
+        listeners:
+            {
+                edit: function (editor, e) {
                 }
             }
-        },
-        store : firstGridStore,
-        columns : [ {
-            header : "Id",
-            dataIndex : 'id',
-            id : 'id',
-            flex : 1,
-            sortable : true
-        }, {
-            header : "Name",
-            dataIndex : 'name',
-            id : 'name',
-            flex : 1,
-            sortable : true
-        },{
-            header : "Sex",
-            dataIndex : 'sex',
-            id : 'sex',
-            flex : 1,
-            sortable : true
-        },{
-            header : "Age",
-            dataIndex : 'age',
-            id: 'sex',
-            flex : 1,
-            sortable : true
-        }, {
-            header : "Email",
-            dataIndex : 'email',
-            id: 'email',
-            flex : 1,
-            sortable : true
-        } ],
-        stripeRows : true,
-        title : 'User Grid',
-        margins : '0 2 0 0'
     });
+
 
     // Creation of a panel.
     var displayPanel = Ext.create('Ext.Panel', {
-        width : 800,
-        height : 400,
-        layout : {
-            type : 'hbox',
-            align : 'stretch',
-            padding : 5
+
+        width: 800,
+        height: 400,
+        layout: {
+            type: 'hbox',
+            align: 'stretch',
+            padding: 5
         },
-        renderTo : 'panel',
-        defaults : {
-            flex : 1
+        renderTo: 'panel',
+        defaults: {
+            flex: 1
         },
-        items : [ firstGrid],
-        dockedItems : {
-            xtype : 'toolbar',
-            dock : 'bottom',
-            items : [ '->', {
-                text : 'Add User',
-                handler : function() {
-                    firstGridStore.loadData(myData);
-                   // Todo adduser;
-                }
-            } ]
-        }
+        items: [firstGrid],
+        dockedItems:
+            {
+                xtype: 'toolbar',
+                dock: 'bottom',
+                items: ['->',
+                    {
+                        xtype: 'button',
+                        border: true,
+                        text: 'Add User',
+                        listeners:
+                            {
+                                click:
+                                    {
+                                        fn: function () {
+                                            firstGridStore.insert(0, new UserDataModel());
+                                            rEditor.startEdit(0, 0);
+                                        }
+                                    }
+                            }
+                    },
+                    {
+                        xtype: 'button',
+                        border: true,
+                        text: 'Сохранить',
+                        listeners:
+                            {
+                                click:
+                                    {
+                                        fn: function () {
+                                            firstGridStore.sync();
+                                        }
+                                    }
+                            }
+                    }
+                ]
+            }
     });
 });

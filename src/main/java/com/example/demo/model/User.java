@@ -55,14 +55,4 @@ public class User {
         this.userEmail = userEmail;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                "\"userId\":"  + "\""+userId +"\""+
-                ", \"userName\":" +"\""+userName +"\""+
-                ", \"userSex\":" +"\""+ userSex  +"\""+
-                ", \"userYearOfBirthDay\":" +"\""+ userYearOfBirthDay +"\""+
-                ", \"userEmail\":" +"\""+ userEmail+"\""
-                +"}";
-    }
 }
