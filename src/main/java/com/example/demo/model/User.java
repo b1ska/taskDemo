@@ -7,14 +7,6 @@ public class User {
     private int userYearOfBirthDay;
     private String userEmail;
 
-    public User(int userId, String userName, String userSex, int userYearOfBirthDay, String userEmail) {
-        this.userId = userId;
-        this.userName = userName;
-        this.userSex = userSex;
-        this.userYearOfBirthDay = userYearOfBirthDay;
-        this.userEmail = userEmail;
-    }
-
     public int getUserId() {
         return userId;
     }

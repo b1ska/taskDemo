@@ -1,6 +1,5 @@
 Ext.require(['Ext.grid.*', 'Ext.data.*', 'Ext.dd.*']);
 
-
 Ext.define('UserDataModel', {
     extend: 'Ext.data.Model',
     fields: [
@@ -20,9 +19,9 @@ Ext.onReady(function () {
         proxy: {
             type: 'ajax',
             api: {
-                read: 'http://localhost:8089/userlist', //поиск
-                create: 'http://localhost:8089/addUser',
-                // update: 'http://localhost:8089/updateUsers'
+                read: 'http://localhost:8089/SweetCRM/userlist',
+                create: 'http://localhost:8089/SweetCRM/addUser',
+                update: 'http://localhost:8089/SweetCRM/updateUsers'
             },
             reader: {
                 type: 'json',
@@ -30,14 +29,12 @@ Ext.onReady(function () {
             },
             writer: {
                 type: 'json',
-           //      rootProperty: "id",
+                rootProperty: "users",
            //      allowSingle: true,
-           //      encode: true,
+                 encode: true,
            // //     listful: true,
-           //      writeAllFields: true
+                 writeAllFields: true
             }
-
-
 
         },
         autoLoad: true
@@ -106,7 +103,6 @@ Ext.onReady(function () {
                 }
             }
     });
-
 
     // Creation of a panel.
     var displayPanel = Ext.create('Ext.Panel', {
