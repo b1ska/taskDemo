@@ -10,8 +10,43 @@
     </select>
 
     <insert id="addNewUser">
-        INSERT INTO "Users" ("userId", "userName", "userSex", "userYearOfBirthDay", "userEmail")
-        VALUES (#{userId}, #{userName}, #{userSex}, #{userYearOfBirthDay}, #{userEmail})
+        INSERT INTO "Users" (
+         user_id,
+         user_name,
+         user_sex,
+         user_birthday,
+         user_email
+         )
+        VALUES (
+        #{userId},
+        #{userName},
+        #{userSex},
+        #{userYearOfBirthDay},
+        #{userEmail}
+        )
     </insert>
+
+    <update id="updateUsers" parameterType="user">
+        UPDATE "Users"
+        <set>
+            user_name = updateData.userName::VARCHAR,
+            user_sex = updateData.userSex::VARCHAR,
+            user_birthday = updateData.userYearOfBirthDay::SMALLINT,
+            user_email = updateData.userEmail::VARCHAR
+        </set>
+        FROM(
+        VALUES
+        <foreach collection="usersList" item="user" separator=",">
+            (
+            #{user.userId},
+            #{user.userName},
+            #{user.userSex},
+            #{user.userYearOfBirthDay},
+            #{user.userEmail}
+            )
+        </foreach>
+        ) AS updateData (userId,userName,userSex,userYearOfBirthDay,userEmail)
+        WHERE user_id = updateData.userId::SMALLINT
+    </update>
 
 </mapper>

@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface UserService {
 
-    public List<User> findUser();
-    public void addNewUser(User user);
+    List<User> findUser();
+    void addNewUser(User user);
+    void updateUsers(List<User> usersList);
 }
