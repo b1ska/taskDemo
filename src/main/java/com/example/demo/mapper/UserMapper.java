@@ -9,7 +9,9 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    public List<User> findUser();
-    public void addNewUser(User user);
-    public void updateUsers(@Param("usersList")List<User> usersList);
+    List<User> findUser();
+
+    void addNewUser(User user);
+
+    void updateUsers(@Param("usersList") List<User> usersList);
 }

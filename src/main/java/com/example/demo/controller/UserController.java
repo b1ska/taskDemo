@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static com.example.demo.util.Constants.USERS;
 import static com.example.demo.util.Util.getList;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -58,7 +59,7 @@ public class UserController {
     @ResponseBody
     public void updateUsers(HttpServletRequest request) {
         try {
-            String users = request.getParameter("users");
+            String users = request.getParameter(USERS);
             List<User> userList = getList(users, User.class);
             userService.updateUsers(userList);
         } catch (Exception ex) {
