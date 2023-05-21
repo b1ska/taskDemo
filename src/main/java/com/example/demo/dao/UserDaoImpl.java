@@ -17,4 +17,14 @@ public class UserDaoImpl implements UserDao {
     public List<User> findUser() {
         return userMapper.findUser();
     }
+
+    @Override
+    public void addNewUser(User user) {
+        userMapper.addNewUser(user);
+    }
+
+    @Override
+    public void updateUsers(List<User> usersList) {
+        userMapper.updateUsers(usersList);
+    }
 }

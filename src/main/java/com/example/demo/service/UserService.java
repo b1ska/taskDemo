@@ -5,5 +5,8 @@ import com.example.demo.model.User;
 import java.util.List;
 
 public interface UserService {
-    public List<User> findUser();
+
+    List<User> findUser();
+    void addNewUser(User user);
+    void updateUsers(List<User> usersList);
 }

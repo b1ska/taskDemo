@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
@@ -16,5 +16,15 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<User> findUser() {
         return userDao.findUser();
+    }
+
+    @Override
+    public void addNewUser(User user) {
+        userDao.addNewUser(user);
+    }
+
+    @Override
+    public void updateUsers(List<User> usersList) {
+        userDao.updateUsers(usersList);
     }
 }

@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Demo task for Petshop team</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Sweet CRM</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/classic/theme-classic/resources/theme-classic-all.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.2.0/ext-all.js"></script>
+        <script type="text/javascript" src="SweetCRM/js/mygrid.js"></script>
+    </head>
 
-<div align="center">
-    <h2>User List</h2>
-    <table border="1">
-       <a th:href="@{/userlist}">my user list</a>
-    </table>
-</div>
+    <body>
 
+    <div align="center">
+        <div id="panel"></div>
+        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </div>
 
-
-</body>
+    </body>
 </html>
