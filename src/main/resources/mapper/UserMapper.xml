@@ -5,8 +5,8 @@
 
 <mapper namespace="com.example.demo.mapper.UserMapper">
     <select id="findUser" resultType="com.example.demo.model.User">
-        SELECT *
-        FROM public."Users"
+           SELECT * FROM public."Users"
+            ORDER BY user_id
     </select>
 
     <insert id="addNewUser">
